@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>com.atlassian.confluence.plugin.base</groupId>
+        <artifactId>confluence-plugin-base</artifactId>
+        <version>7</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.sidus.confluence.twikkir</groupId>
+    <artifactId>twikkir_plugin</artifactId>
+    <version>0.1</version>
+
+    <name>Twikkir</name>
+    <packaging>atlassian-plugin</packaging>
+
+    <properties>
+        <!-- The plugin key. This will be injected into the atlassian-plugins.xml file when built. -->
+         <confluence.version>2.7</confluence.version>
+       <atlassian.plugin.key>com.sidus.confluence.twikkir</atlassian.plugin.key>
+    </properties>
+
+    <description>Twikkir - adds Twitter functionality to Confluence</description>
+	<url>coming soon...</url>
+	
+	<organization>
+    	<name>Sidus</name>
+        <url>coming soon ...</url>
+    </organization>
+
+	<developers>
+		<developer>
+			<name>Keith Brophy</name>
+			<organization>Sidus Limited</organization>
+		</developer>
+	</developers>
+
+ 	<build>
+        <!-- This will automatically put POM settings into atlassian-plugin.xml when building.  -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>atlassian-plugin.xml</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>atlassian-plugin.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>atlassian-pdk</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>atlassian-m2-contrib</id>
+            <name>Atlassian Maven 2 Contributor Repository</name>
+            <url>http://svn.atlassian.com/svn/public/contrib/repositories/maven2</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>atlassian-m2-repository</id>
+            <name>Atlassian Maven 2 Repository</name>
+            <url>http://repository.atlassian.com/maven2</url>
+        </repository>
+        <!--
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>central-m2-repository</id>
+            <name>Central Maven 2 Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        -->
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>atlassian-m2-contrib</id>
+            <name>Atlassian Maven 2 Contributor Repository</name>
+            <url>http://svn.atlassian.com/svn/public/contrib/repositories/maven2</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+
+        <pluginRepository>
+          <id>codehaus.org</id>
+          <name>CodeHaus Plugin Snapshots</name>
+          <url>http://repository.codehaus.org</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
