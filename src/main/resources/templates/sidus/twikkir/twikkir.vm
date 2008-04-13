@@ -1,0 +1,18 @@
+<script type="text/javascript" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/js/twikkir.js">
+</script>
+<script type="text/javascript" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/js/jquery.js">
+</script>
+
+<h2>Twikkir Panel!</h2>
+<br />
+Enter Twikkir message (<span id="charsleft">140</span>):
+<br />
+<form name="twikkirform">
+	<textarea id="twikkirpost" name="twikkirpost" cols="40" rows="3" onkeyup="javascript:getCharsLeft()"></textarea>
+	<input type="button" value="Post It" onclick="javascript:postit();"/>
+</form>
+
+<h2>Recent Twikkirs</h2>
+<div id="twikkirlist">
+</div>
+

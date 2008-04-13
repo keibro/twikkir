@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/keithb/workspace/confluence/twikkir_confluence/confluence-2.7.3-std/confluence/WEB-INF/lib/atlassian-renderer-3.18.jar"/>
+	<classpathentry kind="lib" path="/Users/keithb/workspace/confluence/twikkir_confluence/confluence-2.7.3-std/confluence/WEB-INF/lib/confluence-2.7.3.jar"/>
+	<classpathentry kind="lib" path="/Users/keithb/workspace/jars/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="/Users/keithb/workspace/confluence/twikkir_confluence/confluence-2.7.3-std/confluence/WEB-INF/lib/xwork-1.0.3.jar"/>
+	<classpathentry kind="lib" path="/Users/keithb/workspace/confluence/twikkir_confluence/confluence-2.7.3-std/confluence/WEB-INF/lib/atlassian-bandana-0.2.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

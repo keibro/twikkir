@@ -1,0 +1,33 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${pom.name}">
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${pom.version}</version>
+        <vendor name="${pom.organization.name}" url="${pom.organization.url}"/>
+    </plugin-info>
+    
+    <resource type="download" name="js/" location="js/"/>
+    
+	<!-- Components -->
+	<component name="TwikkirManager" 
+        key="twikkirManager" 
+        alias="twikkirManager"
+        class="com.sidus.confluence.twikkir.TwikkirManager" />      
+
+    <!-- Macros -->
+    <macro name='twikkir' class='com.sidus.confluence.twikkir.macro.TwikkirMacro' key='twikkir'>
+        <description>Displays the twikkir panel.</description>
+    </macro>
+    
+    <!-- Actions -->
+   	<xwork name="twikkiractions" key="twikkiractions">
+       <package name="twikkiractions" extends="default" namespace="/plugin/twikkir">
+           <default-interceptor-ref name="defaultStack" />
+           <action name="postit" class="com.sidus.confluence.twikkir.action.PostItAction">
+               <result name="success" type="velocity">/templates/sidus/twikkir/posted.vm</result>
+           </action>
+           <action name="viewtwikkirlist" class="com.sidus.confluence.twikkir.action.ViewTwikkirListAction">
+               <result name="success" type="velocity">/templates/sidus/twikkir/viewtwikkirlist.vm</result>
+           </action>
+       </package>
+    </xwork>
+</atlassian-plugin>
