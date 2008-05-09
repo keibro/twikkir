@@ -1,18 +1,142 @@
+<script type="text/javascript" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/js/jquery-1.2.3.js">
+</script>
 <script type="text/javascript" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/js/twikkir.js">
 </script>
-<script type="text/javascript" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/js/jquery.js">
+<script type="text/javascript" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/js/ui_core_15b4.js">
+</script>
+<script type="text/javascript" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/js/ui_tabs_15b4.js">
+</script>
+<script type="text/javascript" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/js/jquery_highlight_fade.js">
+</script>
+<link rel="stylesheet" href="$req.contextPath/download/resources/com.sidus.confluence.twikkir/css/twikkir-styles.css" type="text/css" media="screen" title="Twikkir Style"></link>
+
+#macro (getUserPic $username)
+	<img src="$twikkir_helper.getProfilePic($username)" width="48" height="48"/>
+#end
+
+<script type="text/javascript">
+	var $jq = jQuery.noConflict();
+	$jq("document").ready(function(){
+		$jq("#twikkirtabs > ul").tabs({ fx: { opacity: 'toggle' } });
+	});
+	$jq('#lastUpdateDate').val(0);
+	numleadertwikkirs = 0;
 </script>
 
-<h2>Twikkir Panel!</h2>
-<br />
-Enter Twikkir message (<span id="charsleft">140</span>):
-<br />
-<form name="twikkirform">
-	<textarea id="twikkirpost" name="twikkirpost" cols="40" rows="3" onkeyup="javascript:getCharsLeft()"></textarea>
-	<input type="button" value="Post It" onclick="javascript:postit();"/>
-</form>
-
-<h2>Recent Twikkirs</h2>
-<div id="twikkirlist">
+<h2>Twikkir Panel</h2>
+  
+<input id="currentUsername" type="hidden" value="$currentUsername" />
+<div id="twikkirtabs">
+	<ul>
+		<li><a href="#tab_twikkirs">&nbsp;Twikkir It&nbsp;</a></li>
+		<li><a href="#tab_leaderControl">&nbsp;Leaders/Followers&nbsp;</a></li>
+		<li><a href="#tab_mytwikkirs">&nbsp;My Twikkirs&nbsp;</a></li>
+	</ul>
+	<div id="tab_twikkirs">
+		Enter Twikkir message (<span class="smalltext" id="charsleft">140</span>): 
+		<br />
+		<form name="twikkirpost">
+			<table>
+				<tr>
+					<td>
+						<textarea id="twikkirpost" name="twikkirpost" cols="40" rows="3" onkeyup="javascript:getCharsLeft()"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td>
+									<input type="button" value="Post It" onclick="javascript:postit();"/><br />
+								</td>
+								<td>
+									<img id="postStatusImg" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/img/resting.gif"/>
+								</td>
+								<td>
+									<div id="poststatus"></div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<h3>Recent Twikkirs:</h3>
+		<input id="lastUpdateDate" type="hidden" value="0" />
+		<div id="leadertwikkirs">
+		</div>
+	</div>
+	<div id="tab_leaderControl">
+		<a class="addremovelink" href="/plugin/twikkir/refresh.action?pageId=$pageId"><img title="Refresh user list" width="32" height="32" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/img/reload.png"/></a>&nbsp;<a href="/plugin/twikkir/refresh.action?pageId=$pageId">Refresh user list</a>
+		<h3>You are listening to:</h3>
+			<div id="peoplelist">
+				<div id="leader_list">
+					#foreach($leader in $leaders)
+						#set($userPicPath = $twikkir_helper.getProfilePic($leader))
+						#set($fullName = $twikkir_helper.getFullName($leader))
+						#set($contextPath = $req.contextPath)
+						<div class="person" id="leader_$leader">
+							<table>
+								<tr>
+									<td valign="top">
+										#getUserPic($leader)
+									</td>
+									<td>
+										$twikkir_helper.getFullName($leader)<br />
+										<a class="addremovelink" href="javascript:removeLeader('$currentUsername', '$leader', '$fullName', '$userPicPath', '$contextPath');"><img width="24" height="24" title="Stop listening to $twikkir_helper.getFullName($leader)" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/img/remove.png"></a>
+									</td>
+								</tr>
+							</table>	
+						</div>
+					#end
+				</div>
+			</div>
+			<br clear="all"/>
+		<h3>Twikkir Users - start listening!</h3>
+		<form name="twikkirusers">
+			<div id="peoplelist">
+				<div id="potential_leaders">
+					#foreach($username in $users)
+						#set($userPicPath = $twikkir_helper.getProfilePic($username))
+						#set($fullName = $twikkir_helper.getFullName($username))
+						#set($contextPath = $req.contextPath)
+						<div class="person" id="potential_leader_$username">
+							<table>
+								<tr>
+									<td>
+										#getUserPic($username)
+									</td>
+									<td>
+										$fullName<br />
+										<a class="addremovelink" href="javascript:addLeader('$currentUsername', '$username', '$fullName', '$userPicPath', '$contextPath');"><img width="24" height="24" title="Start listening to $fullName" src="$req.contextPath/download/resources/com.sidus.confluence.twikkir/img/add.png"></a>
+									</td>
+								</tr>
+							</table>	
+						</div>
+					#end
+				</div>
+			</div>
+			<br clear="all"/>
+		</form>
+	</div>
+	<div id="tab_mytwikkirs">
+		<h3>$numFollowers people are listening to you.</h3>
+		<h2>My Recent Twikkirs</h2>
+			<div id="myrecenttwikkirlist">
+				#foreach($twikkir in $myrecenttwikkirs)
+					<div class="twikkirpost">
+						<table>
+							<tr>
+								<td valign="top">
+	           						#getUserPic($twikkir.username)
+	           					</td>
+						        <td>$twikkir.post<br /><span class="smalltext">$twikkir.postDate</span>
+						        </td>
+						   </tr>
+						</table>
+					</div>
+				#end
+			</div>
+	</div>
 </div>
-
+	

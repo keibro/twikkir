@@ -1,3 +1,0 @@
-#foreach($twikkir in $twikkirlist)
-	$twikkir.username - $twikkir.post - $twikkir.postDate
-#end

@@ -6,12 +6,19 @@
     </plugin-info>
     
     <resource type="download" name="js/" location="js/"/>
-    
+	<resource type="download" name="img/" location="img/"/>
+	<resource type="download" name="css/" location="css/"/>
+	
 	<!-- Components -->
 	<component name="TwikkirManager" 
         key="twikkirManager" 
         alias="twikkirManager"
         class="com.sidus.confluence.twikkir.TwikkirManager" />      
+        
+    <!-- Velocity Context -->
+ 	<velocity-context-item key="twikkir_helper" 
+          name="Twikkir Velocity Helper" context-key="twikkir_helper"
+          class="com.sidus.confluence.twikkir.velocity.TwikkirHelper" />    
 
     <!-- Macros -->
     <macro name='twikkir' class='com.sidus.confluence.twikkir.macro.TwikkirMacro' key='twikkir'>
@@ -23,10 +30,25 @@
        <package name="twikkiractions" extends="default" namespace="/plugin/twikkir">
            <default-interceptor-ref name="defaultStack" />
            <action name="postit" class="com.sidus.confluence.twikkir.action.PostItAction">
-               <result name="success" type="velocity">/templates/sidus/twikkir/posted.vm</result>
+               <result name="success" type="velocity-xml">/templates/sidus/twikkir/posted.vm</result>
+           </action>
+           <action name="refresh" class="com.sidus.confluence.twikkir.action.RefreshAction">
+               <result name="success" type="redirect">${@com.atlassian.confluence.util.GeneralUtil@getPageUrl(refreshPage)}#tab_leaderControl</result>
            </action>
            <action name="viewtwikkirlist" class="com.sidus.confluence.twikkir.action.ViewTwikkirListAction">
-               <result name="success" type="velocity">/templates/sidus/twikkir/viewtwikkirlist.vm</result>
+               <result name="success" type="velocity-xml">/templates/sidus/twikkir/viewtwikkirlist.vm</result>
+           </action>
+           <action name="addleader" class="com.sidus.confluence.twikkir.action.AddLeaderAction">
+               <result name="success" type="velocity-xml">/templates/sidus/twikkir/updatedleaders.vm</result>
+           </action>
+			<action name="getlatesttwikkirs" class="com.sidus.confluence.twikkir.action.GetLatestTwikkirsFromLeadersAction">
+               <result name="success" type="velocity-xml">/templates/sidus/twikkir/latesttwikkirs.vm</result>
+           </action>
+           <action name="removeleader" class="com.sidus.confluence.twikkir.action.RemoveLeaderAction">
+               <result name="success" type="velocity-xml">/templates/sidus/twikkir/removeleader.vm</result>
+           </action>  
+           <action name="clearall" class="com.sidus.confluence.twikkir.action.ClearDataAction">
+               <result name="success" type="redirect">${@com.atlassian.confluence.util.GeneralUtil@getPageUrl(page)}</result>
            </action>
        </package>
     </xwork>
