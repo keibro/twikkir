@@ -57,15 +57,12 @@ public class TwikkirMacro extends BaseMacro
         twikkirUsers.removeAll(leaders);
         
         SortedSet myRecentTwikkirs = twikkirManager.getTwikkirs(currentUsername);
-        int followers = twikkirManager.getFollowers(currentUsername).size();
-        Integer followersInt = new Integer(followers);
         
         Map velocityContextMap = MacroUtils.defaultVelocityContext();
 		velocityContextMap.put(PARAM_CURRENT_USERNAME, currentUsername);
 		velocityContextMap.put(PARAM_USERS, twikkirUsers);
 		velocityContextMap.put(PARAM_LEADERS, leaders);
 		velocityContextMap.put("pageId", pageId);
-		velocityContextMap.put("numFollowers", followersInt.toString());
 		velocityContextMap.put("myrecenttwikkirs", myRecentTwikkirs);
     	return VelocityUtils.getRenderedTemplate(MACRO_TEMPLATE, velocityContextMap);
     }

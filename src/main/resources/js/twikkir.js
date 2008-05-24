@@ -229,5 +229,5 @@ function getLatestTwikkirs()
  *************************************************************** Timers ****
  */
  
-setInterval ( "getLatestTwikkirs()", 5000 );
+setInterval ( "getLatestTwikkirs()", 60000 );
 

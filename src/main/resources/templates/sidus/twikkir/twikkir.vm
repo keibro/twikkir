@@ -120,23 +120,22 @@
 		</form>
 	</div>
 	<div id="tab_mytwikkirs">
-		<h3>$numFollowers people are listening to you.</h3>
 		<h2>My Recent Twikkirs</h2>
-			<div id="myrecenttwikkirlist">
-				#foreach($twikkir in $myrecenttwikkirs)
-					<div class="twikkirpost">
-						<table>
-							<tr>
-								<td valign="top">
-	           						#getUserPic($twikkir.username)
-	           					</td>
-						        <td>$twikkir.post<br /><span class="smalltext">$twikkir.postDate</span>
-						        </td>
-						   </tr>
-						</table>
-					</div>
-				#end
-			</div>
+		<div id="myrecenttwikkirlist">
+			#foreach($twikkir in $myrecenttwikkirs)
+				<div class="twikkirpost">
+					<table>
+						<tr>
+							<td valign="top">
+           						#getUserPic($twikkir.username)
+           					</td>
+					        <td>$twikkir.post<br /><span class="smalltext">$twikkir.postDate</span>
+					        </td>
+					   </tr>
+					</table>
+				</div>
+			#end
+		</div>
 	</div>
 </div>
 	
